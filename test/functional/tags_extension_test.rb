@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TagsExtensionTest < Test::Unit::TestCase
+class TagsExtensionTest < ActiveSupport::TestCase
   
   fixtures :pages, :meta_tags, :taggings
   test_helper :render

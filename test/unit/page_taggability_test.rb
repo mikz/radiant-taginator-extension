@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PageTaggabilityTest < Test::Unit::TestCase
+class PageTaggabilityTest < ActiveSupport::TestCase
   def setup
     @page = Page.find 1
   end

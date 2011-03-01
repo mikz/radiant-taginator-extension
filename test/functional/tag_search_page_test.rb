@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TagSearchPageTest < Test::Unit::TestCase
+class TagSearchPageTest < ActiveSupport::TestCase
   
   fixtures :pages, :meta_tags, :taggings, :page_parts
   

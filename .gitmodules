@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/acts-as-taggable-on"]
+	path = vendor/plugins/acts-as-taggable-on
+	url = https://github.com/mikz/acts-as-taggable-on.git

@@ -1,8 +1,8 @@
 %tr
   %th.label
-    %label{:for => "page_meta_tags"}
+    %label{:for => "page_categories_list"}
       Tags
   %td.field
-    = f.text_field :meta_tags, :value => @page.tag_list, :class => 'textbox'
+    = f.text_field :category_list, :class => 'textbox'
     - unless model.errors.on_base.nil?
       %span.error= model.errors.on_base
