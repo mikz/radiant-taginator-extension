@@ -49,11 +49,11 @@ module RadiusTags
   }
   tag "related_by_tags" do |tag|
     options = tag.attr.slice(:offset, :limit, :order)
-    results = tag.locals.page.find_related_on_categories(options)
+    results = tag.locals.page.find_related_on_categories(options).to_a
     return if results.size < 1
     
     if scope = tag.attr[:scope].presence
-      results.select! {|page| page.url.starts_with? scope }
+      results.reject! {|page| not page.url.starts_with?(scope) }
     end
 
     results.map do |page|
