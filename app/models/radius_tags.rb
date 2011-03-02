@@ -8,7 +8,7 @@ module RadiusTags
     Expands if a <pre><r:tagged with="" /></pre> call would return items. Takes the same options as the 'tagged' tag.
     The <pre><r:unless_tagged with="" /></pre> is also available.
   }
-  tag :if_tagged do |tag|
+  tag 'if_tagged' do |tag|
     if tag.attr[:with]
       tag.locals.tagged_results = find_with_tag_options(tag)
       tag.expand unless tag.locals.tagged_results.empty?
@@ -17,7 +17,7 @@ module RadiusTags
     end
   end
   
-  tag :unless_tagged do |tag|
+  tag 'unless_tagged' do |tag|
     if tag.attr[:with]
       tag.expand if find_with_tag_options(tag).empty?
     else
@@ -31,7 +31,7 @@ module RadiusTags
     *Usage:*
     <pre><code><r:tagged with="shoes diesel" [scope="/fashion/cult-update"] [with_any="true"] [offset="number"] [limit="number"] [by="attribute"] [order="asc|desc"]>...</r:tagged></code></pre>
   }
-  tag :tagged do |tag|
+  tag 'tagged' do |tag|
     tag.attr[:exclude_id] ||= tag.locals.page.id
     tag.locals.tagged_results ||= find_with_tag_options(tag)
 
@@ -303,10 +303,12 @@ module RadiusTags
   
   delegate :template, :to => :response
   delegate :content_tag, :to => :template
+  
   def link_to *args
     args.second.gsub!(' ', '+') if args.second.respond_to?(:gsub)
     template.send(:link_to, *args)
   end
+  
   def results_page(tag)
     (tag.attr['results_page'] || Radiant::Config['tags.results_page_url']).dup << "/"
   end
