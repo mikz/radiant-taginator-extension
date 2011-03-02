@@ -15,7 +15,7 @@ class TagsExtension < Radiant::Extension
     end
     
     Page.class_eval do
-      acts_as_taggable_on :categories
+      acts_as_taggable_on :categories if respond_to? :acts_as_taggable_on
 
       def category_names
         categories.map &:name
