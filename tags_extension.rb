@@ -1,7 +1,7 @@
 require_dependency 'application_controller'
 
 class TagsExtension < Radiant::Extension
-  version "2.0.beta1"
+  version Tags::VERSION
   description "This extension enhances the page model with tagging capabilities, tagging as in \"2.0\" and tagclouds."
   url "http://gorilla-webdesign.be"  
   
