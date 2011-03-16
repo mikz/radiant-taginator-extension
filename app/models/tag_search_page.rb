@@ -9,7 +9,7 @@ class TagSearchPage < Page
 
   desc %{    Renders the passed query.}
   tag 'search:query' do |tag|
-    CGI.escapeHTML(requested_tag)
+    requested_tag
   end
   
   desc %{    Renders the contained block if no results were returned.}
@@ -76,8 +76,8 @@ class TagSearchPage < Page
 
   def find_by_url(url, live = true, clean = false)
     url = clean_url(url).chop # chop off trailing slash added by clean_url
-    if url =~ /^#{self.url}([a-zA-Z0-9,\_\-\s\/()'.&]*)\/?$/
-      self.requested_tag = $1
+    if url =~ /^#{self.url}(.*?)\/?$/
+      self.requested_tag = $1.gsub(/\b\+\b/, " ")
       self
     else
       super

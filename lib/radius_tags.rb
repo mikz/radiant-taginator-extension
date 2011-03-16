@@ -263,18 +263,21 @@ module RadiusTags
     end
     
     by = (tag.attr[:by] || 'published_at').strip
-    order = (tag.attr[:order] || 'asc').strip
+    order = (tag.attr[:order] || 'desc').strip
     order_string = ''
+    
     if self.attributes.keys.include?(by)
       order_string << by
     else
       raise TagError.new("`by' attribute of `each' tag must be set to a valid field name")
     end
+    
     if order =~ /^(asc|desc)$/i
       order_string << " #{$1.upcase}"
     else
       raise TagError.new(%{`order' attribute of `each' tag must be set to either "asc" or "desc"})
     end
+    
     options[:order] = order_string
     
     status = (tag.attr[:status] || 'published').downcase
@@ -290,6 +293,7 @@ module RadiusTags
     else
       options[:conditions] = ["virtual = ? #{exclude}", false]
     end
+    
     options
   end
 

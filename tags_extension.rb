@@ -3,7 +3,7 @@ require_dependency 'application_controller'
 class TagsExtension < Radiant::Extension
   version Tags::VERSION
   description "This extension enhances the page model with tagging capabilities, tagging as in \"2.0\" and tagclouds."
-  url "http://gorilla-webdesign.be"  
+  url "http://gorilla-webdesign.be"
   
   DEFAULT_RESULTS_URL = '/t'
  
@@ -21,7 +21,7 @@ class TagsExtension < Radiant::Extension
         categories.map &:name
       end
 
-      alias :tag_list :category_list
+      alias :tag_list :public_category_list
       alias :tag_list= :category_list=
       
     end
