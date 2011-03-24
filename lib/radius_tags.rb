@@ -177,7 +177,7 @@ module RadiusTags
     Usage: <pre><code><r:all_tags:each order="popularity" limit="5">...</r:all_tags:each></code></pre>
   }
   tag "all_tags:each" do |tag|
-    Page.all_tag_counts(tag.attr.slice(:order, :limit)).map do |t|
+    Page.all_tag_counts(tag.attr.slice(:order, :limit).symbolize_keys).map do |t|
       tag.locals.tag = t
       tag.expand
     end
@@ -306,6 +306,7 @@ module RadiusTags
   end
   
   delegate :template, :to => :response
+#  delegate :link_to, :to => :template, :allow_nil => true
   delegate :content_tag, :to => :template
   
   def link_to *args
