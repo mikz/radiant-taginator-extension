@@ -48,7 +48,7 @@ module RadiusTags
     <pre><code><r:related_by_tags [scope="/fashion/cult-update"] [offset="number"] [limit="number"] [by="attribute"] [order="asc|desc"]>...</r:related_by_tags></code></pre>
   }
   tag "related_by_tags" do |tag|
-    options = tag.attr.slice(:offset, :limit, :order)
+    options = tag.attr.slice(:offset, :limit, :order).symbolize_keys
     results = tag.locals.page.find_related_on_categories(options).to_a
     return if results.size < 1
     
@@ -64,7 +64,7 @@ module RadiusTags
   end
   
   tag "if_has_related_by_tags" do |tag|
-    options = tag.attr.slice(:offset, :limit, :order)
+    options = tag.attr.slice(:offset, :limit, :order).symbolize_keys
     results = tag.locals.page.find_related_on_categories(options)
     tag.expand if results.size > 0
   end
@@ -87,7 +87,7 @@ module RadiusTags
     <pre><code><r:tag_cloud_list [limit="number"] [results_page="/some/url"] [scope="/some/url"]/></code></pre>
   }
   tag "tag_cloud" do |tag|
-    options = tag.attr.except(:scope, :results_page).symbolize_keys!
+    options = tag.attr.except(:scope, :results_page).symbolize_keys
     tags = tag.locals.page.class.tag_counts_on(:categories, options)
     
     tags = filter_tags_to_url_scope(tags, tag.attr['scope']) unless tag.attr['scope'].nil?
@@ -117,7 +117,7 @@ module RadiusTags
   tag "tag_cloud_list" do |tag|
     options = {}
     tags = tag.locals.page.class.all_tag_counts(options).order('count desc')
-    tags = filter_tags_to_url_scope(tags, tag.attr['scope']) unless tag.attr['scope'].nil?
+    tags = filter_tags_to_url_scope(tags, tag.attr[:scope]) unless tag.attr[:scope].nil?
     
     results_page = tag.attr[:results_page] || Radiant::Config['tags.results_page_url']
 
