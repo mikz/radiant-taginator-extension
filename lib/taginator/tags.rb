@@ -1,4 +1,4 @@
-module RadiusTags
+module Taginator::Tags
   include Radiant::Taggable
   include ActionView::Helpers::TextHelper
   

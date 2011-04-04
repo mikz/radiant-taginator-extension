@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "tags"
+require 'taginator'
 
 Gem::Specification.new do |s|
-  s.name        = 'radiant-tags-extension'
-  s.version     = Tags::VERSION
+  s.name        = 'radiant-taginator-extension'
+  s.version     = Taginator::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["mikz"]
   s.email       = ["mikz@o2h.cz"]
-  s.homepage    = 'http://github.com/mikz/radiant-tags-extension'
+  s.homepage    = 'http://github.com/mikz/radiant-taginator-extension'
   s.summary     = "This extension enhances the page model with tagging capabilities, tagging as in \"2.0\" and tagclouds."
-#  s.description = %q{}
+  s.description = %q{Original extension - https://github.com/jomz/radiant-tags-extension}
   s.require_paths = ['lib']
 
   #s.rubyforge_project = "radiant_tools"

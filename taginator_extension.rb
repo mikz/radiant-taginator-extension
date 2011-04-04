@@ -1,9 +1,9 @@
 require_dependency 'application_controller'
 
-class TagsExtension < Radiant::Extension
-  version Tags::VERSION
+class TaginatorExtension < Radiant::Extension
+  version Taginator::VERSION
   description "This extension enhances the page model with tagging capabilities, tagging as in \"2.0\" and tagclouds."
-  url "http://gorilla-webdesign.be"
+  url "http://github.com/mikz/radiant-taginator-extension"
   
   DEFAULT_RESULTS_URL = '/t'
  
@@ -27,7 +27,7 @@ class TagsExtension < Radiant::Extension
     end
     
     TagSearchPage
-    Page.send :include, RadiusTags
+    Page.send :include, Taginator::Tags
     admin.page.edit.add :extended_metadata, 'tag_field'
 
     
