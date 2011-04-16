@@ -177,7 +177,14 @@ module Taginator::Tags
     Usage: <pre><code><r:all_tags:each order="popularity" limit="5">...</r:all_tags:each></code></pre>
   }
   tag "all_tags:each" do |tag|
-    Page.all_tag_counts(tag.attr.slice(:order, :limit).symbolize_keys).map do |t|
+    options = tag.attr.slice(:order, :limit).symbolize_keys
+    
+    if names = tag.attr[:names]
+      names = names.split(",").map{|t| t.strip } 
+      options[:conditions] = ["name IN (?)", names] if names.length > 0
+    end
+    
+    Page.all_tag_counts(options).map do |t|
       tag.locals.tag = t
       tag.expand
     end
@@ -190,9 +197,10 @@ module Taginator::Tags
   
   tag "all_tags:each:link" do |tag|
     name = tag.locals.tag.name
-    link_to name, results_page(tag) << name, :class => 'tag'
+    link_to tag.expand.presence || name,
+            results_page(tag) << name,
+            tag.attr.reverse_merge(:class => 'tag')
   end
-  
   
   desc "Set the scope for the tag's pages"
   tag "all_tags:each:pages" do |tag|
@@ -201,14 +209,10 @@ module Taginator::Tags
   
   desc "Iterates through each page"
   tag "all_tags:each:pages:each" do |tag|
-    result = []
-    tag.locals.meta_tag.taggables.each do |taggable|
-      if taggable.is_a?(Page)
-        tag.locals.page = taggable
-        result << tag.expand
-      end
+    Page.tagged_with(tag.locals.tag.name, tag.attr.symbolize_keys).map do |page|
+      tag.locals.page = page
+      tag.expand
     end
-    result
   end
   
   private
