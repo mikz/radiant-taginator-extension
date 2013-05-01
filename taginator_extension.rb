@@ -21,7 +21,7 @@ class TaginatorExtension < Radiant::Extension
         categories.map &:name
       end
 
-      alias :tag_list :public_category_list
+      alias :tag_list :category_list
       alias :tag_list= :category_list=
       
     end
